@@ -1,0 +1,14 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "BeatmapPlayCount",
+  "name": "Simple Beatmap Play Count",
+  "author": "Netux",
+  "version": "1.0.0",
+  "description": "",
+  "gameVersion": "1.24.0",
+  "dependsOn": {
+    "BSIPA": "^4.2.0",
+    "BeatSaberMarkupLanguage": "^1.6.7",
+    "SiraUtil": "^3.1.2"
+  }
+}
