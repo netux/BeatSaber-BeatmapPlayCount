@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BeatmapPlayCount.Configuration;
 using Zenject;
 
 namespace BeatmapPlayCount.Managers
@@ -13,8 +9,6 @@ namespace BeatmapPlayCount.Managers
         private readonly string beatmapId;
 
         public bool Incremented { get; private set; }
-
-        private float percentageToIncrement = 0.7f; // TODO(netux): make configurable
 
         public TrackPlaytime(IDifficultyBeatmap _currentlyPlayingLevel, AudioTimeSyncController _audioSyncController)
         {
@@ -35,7 +29,7 @@ namespace BeatmapPlayCount.Managers
             }
 
             var progress = audioSyncController.songTime / audioSyncController.songEndTime;
-            if (progress >= this.percentageToIncrement)
+            if (progress >= PluginConfig.Instance.MinimumSongProgressToIncrementingPlayCount)
             {
                 Plugin.storage.IncrementPlayCount(beatmapId);
                 Incremented = true;

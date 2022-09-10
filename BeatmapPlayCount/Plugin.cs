@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using IPA;
+using IPA.Config;
+using IPA.Config.Stores;
 using IPALogger = IPA.Logging.Logger;
 using HarmonyLib;
 using SiraUtil.Zenject;
 using BeatmapPlayCount.Installers;
-using BeatmapPlayCount.Managers;
-using Zenject;
 
 namespace BeatmapPlayCount
 {
@@ -19,11 +19,6 @@ namespace BeatmapPlayCount
 		private static Harmony harmony { get; set; }
 
 		[Init]
-		/// <summary>
-		/// Called when the plugin is first loaded by IPA (either when the game starts or when the plugin is enabled if it starts disabled).
-		/// [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
-		/// Only use [Init] with one Constructor.
-		/// </summary>
 		public void Init(Zenjector zenjector, IPALogger logger) {
 			Instance = this;
 			Log = logger;
@@ -31,20 +26,15 @@ namespace BeatmapPlayCount
 			zenjector.Install<PlayCountGameInstaller>(Location.GameCore);
         }
 
-		#region BSIPA Config
-		//Uncomment to use BSIPA's config
-		/*
         [Init]
         public void InitWithConfig(Config conf)
         {
             Configuration.PluginConfig.Instance = conf.Generated<Configuration.PluginConfig>();
-            Log.Debug("Config loaded");
         }
-        */
-		#endregion
 
 		[OnStart]
-		public void OnApplicationStart() {
+		public void OnApplicationStart()
+		{
 			storage = new Storage();
 
             harmony = new Harmony("Netux.BeatSaber.BeatmapPlayCount");
@@ -52,7 +42,8 @@ namespace BeatmapPlayCount
         }
 
 		[OnExit]
-		public void OnApplicationQuit() {
+		public void OnApplicationQuit()
+		{
 			harmony.UnpatchSelf();
 		}
 	}
