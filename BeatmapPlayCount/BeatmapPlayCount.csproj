@@ -41,13 +41,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\..\BeatSaberLegacyLauncher\Installed Versions\Beat Saber 1.24.0\Libs\0Harmony.dll</HintPath>
+      <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="BSML">
-      <HintPath>..\..\..\..\..\BeatSaberLegacyLauncher\Installed Versions\Beat Saber 1.24.0\Plugins\BSML.dll</HintPath>
+      <HintPath>$(BeatSaberDir)\Plugins\BSML.dll</HintPath>
     </Reference>
     <Reference Include="SiraUtil">
-      <HintPath>..\..\..\..\..\BeatSaberLegacyLauncher\Installed Versions\Beat Saber 1.24.0\Plugins\SiraUtil.dll</HintPath>
+      <HintPath>$(BeatSaberDir)\Plugins\SiraUtil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,10 +100,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Zenject">
-      <HintPath>..\..\..\..\..\BeatSaberLegacyLauncher\Installed Versions\Beat Saber 1.24.0\Beat Saber_Data\Managed\Zenject.dll</HintPath>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Zenject.dll</HintPath>
     </Reference>
     <Reference Include="Zenject-usage">
-      <HintPath>..\..\..\..\..\BeatSaberLegacyLauncher\Installed Versions\Beat Saber 1.24.0\Beat Saber_Data\Managed\Zenject-usage.dll</HintPath>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Zenject-usage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
