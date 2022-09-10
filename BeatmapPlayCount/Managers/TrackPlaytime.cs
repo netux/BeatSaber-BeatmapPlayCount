@@ -31,7 +31,7 @@ namespace BeatmapPlayCount.Managers
             var progress = audioSyncController.songTime / audioSyncController.songEndTime;
             if (progress >= PluginConfig.Instance.MinimumSongProgressToIncrementingPlayCount)
             {
-                Plugin.storage.IncrementPlayCount(beatmapId);
+                Plugin._storage.IncrementPlayCount(beatmapId);
                 Incremented = true;
             }
         }

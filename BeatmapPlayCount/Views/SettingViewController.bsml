@@ -1,0 +1,16 @@
+﻿<bg
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+	xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'
+>
+	<settings-container>
+		<slider-setting
+			text='Minimum song progress % to increment play count'
+			overflow-mode='Overflow'
+			word-wrapping='false'
+			integer-only='false'
+			value='MinimumSongProgressToIncrementingPlayCount'
+			min='0.0'
+			max='100.0'
+		></slider-setting>
+	</settings-container>
+</bg>

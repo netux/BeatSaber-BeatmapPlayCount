@@ -32,7 +32,7 @@ namespace BeatmapPlayCount.HarmonyPatches.UI
             }
 
             var beatmap = IPA.Utilities.ReflectionUtil.GetField<IBeatmapLevel, StandardLevelDetailView>(__instance, "_level");
-            var count = Plugin.storage.GetPlayCount(beatmap.levelID);
+            var count = Plugin._storage.GetPlayCount(beatmap.levelID);
 
             playCountTextGameObject.text = "\uD83D\uDF82 " + count.ToString();
         }
