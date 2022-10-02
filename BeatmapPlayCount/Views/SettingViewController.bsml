@@ -12,5 +12,24 @@
 			min='0.0'
 			max='100.0'
 		></slider-setting>
+		<vertical
+			horizontal-fit='Unconstrained'
+			vertical-fit='PreferredSize'
+		>
+			<label text='Banned gamemodes / beatmap characteristics'></label>
+			<vertical
+				horizontal-fit='PreferredSize'
+				pad-left='10'
+			>
+				<macro.for-each hosts='BannedBeatmapCharacteristics'>
+					<checkbox-setting
+						text='~LocalizedCharacteristicName'
+						value='IsBanned'
+						on-change='HandleChange'
+						preferred-width='80'
+					/>
+				</macro.for-each>
+			</vertical>
+		</vertical>
 	</settings-container>
 </bg>

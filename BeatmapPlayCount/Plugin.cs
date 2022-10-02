@@ -27,7 +27,7 @@ namespace BeatmapPlayCount
 
 			zenjector.Install(Location.Menu, Container =>
 			{
-                Container.Bind<SettingViewController>().FromNewComponentAsViewController().AsSingle().NonLazy();
+                Container.BindInterfacesAndSelfTo<SettingViewController>().FromNewComponentAsViewController().AsSingle().NonLazy();
             });
 			zenjector.Install(Location.GameCore, Container =>
 			{

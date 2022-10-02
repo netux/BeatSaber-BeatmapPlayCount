@@ -5,6 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+	<LangVersion>8</LangVersion>
     <ProjectGuid>{0E7EC049-E3E7-492E-8E45-9C8CC3649C11}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -114,6 +115,10 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Zenject-usage.dll</HintPath>
       <Private>False</Private>
     </Reference>
+	<Reference Include="Polyglot">
+	  <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Polyglot.dll</HintPath>
+      <Private>False</Private>
+	</Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Managers\TrackPlaytime.cs" />
