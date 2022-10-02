@@ -9,6 +9,7 @@ namespace BeatmapPlayCount.Managers
         private readonly string beatmapId;
 
         public bool Incremented { get; private set; }
+        public bool IsGameplayAnExternalModReplay { get; private set; }
 
         public TrackPlaytime(IDifficultyBeatmap _currentlyPlayingLevel, AudioTimeSyncController _audioSyncController)
         {
@@ -19,11 +20,12 @@ namespace BeatmapPlayCount.Managers
         public void Initialize()
         {
             Incremented = false;
+            IsGameplayAnExternalModReplay = Utils.ExternalReplayMod.CheckIfGameplayIsAReplay();
         }
 
         public void Tick()
         {
-            if (Incremented)
+            if (IsGameplayAnExternalModReplay || Incremented)
             {
                 return;
             }
