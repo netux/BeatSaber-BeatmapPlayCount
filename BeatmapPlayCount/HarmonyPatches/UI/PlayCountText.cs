@@ -23,7 +23,6 @@ namespace BeatmapPlayCount.HarmonyPatches.UI
                 // Create text GameObject from reference
                 playCountTextGameObject = GameObject.Instantiate(notesPerSecondText, __instance.transform);
                 playCountTextGameObject.name = "PlayCountText";
-                playCountTextGameObject.transform.localPosition = new Vector3(20f, -4.5f, 0f);
 
                 var textComp = playCountTextGameObject.GetComponent<TextMeshProUGUI>();
                 textComp.fontStyle = FontStyles.Normal;
@@ -35,6 +34,12 @@ namespace BeatmapPlayCount.HarmonyPatches.UI
             var count = Plugin._storage.GetPlayCount(beatmap.levelID);
 
             playCountTextGameObject.text = "\uD83D\uDF82 " + count.ToString();
+
+            playCountTextGameObject.transform.localPosition = new Vector3(20f, -3f, 0f);
+            if (SongCore.UI.RequirementsUI.instance.ButtonInteractable)
+            {
+                playCountTextGameObject.transform.localPosition += Vector3.left * 10;
+            }
         }
     }
 }
