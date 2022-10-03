@@ -17,6 +17,8 @@ namespace BeatmapPlayCount.Configuration
 
         public virtual float MinimumSongProgressToIncrementingPlayCount { get; set; } = 0.7f;
 
+        public virtual bool IncrementCountInPracticeMode { get; set; } = true;
+
         [NonNullable, UseConverter(typeof(CollectionConverter<string, HashSet<string>>))]
         public virtual HashSet<string> BannedBeatmapCharacteristics { get; set; } = new HashSet<string> { "Lightshow" };
     }
