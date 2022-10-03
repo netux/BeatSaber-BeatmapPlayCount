@@ -23,8 +23,15 @@ namespace BeatmapPlayCount.Views
             set => PluginConfig.Instance.MinimumSongProgressToIncrementingPlayCount = value / 100.0f;
         }
 
+        [UIValue("IncrementCountInPracticeMode")]
+        public bool IncrementCountInPracticeMode
+        {
+            get => PluginConfig.Instance.IncrementCountInPracticeMode;
+            set => PluginConfig.Instance.IncrementCountInPracticeMode = value;
+        }
+
         [UIValue("BannedBeatmapCharacteristics")]
-        public List<BeatmapCharacteristicBannedToggle> BannedBeatmapCharacteristics = new List<BeatmapCharacteristicBannedToggle>();
+        public readonly List<BeatmapCharacteristicBannedToggle> BannedBeatmapCharacteristics = new List<BeatmapCharacteristicBannedToggle>();
 
         public string ResourceName => string.Join(".", GetType().Namespace, GetType().Name);
 
