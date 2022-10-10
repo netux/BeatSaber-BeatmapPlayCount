@@ -17,14 +17,15 @@ namespace BeatmapPlayCount.Managers
         public bool IsGameplayInPracticeMode { get; private set; }
         public bool DoesBeatmapHaveBannedCharacteristic { get; private set; }
 
+        public float SongStartTime { get; private set; }
+
         public bool CanIncrementByPercentageDuringPracticeMode
         {
             get
             {
-                return IsGameplayInPracticeMode && (
-                    !PluginConfig.Instance.IncrementCountInPracticeMode ||
-                    PluginConfig.Instance.OnlyIncrementInPracticeModeWhenThePlayerFinishes
-                );
+                return IsGameplayInPracticeMode &&
+                    PluginConfig.Instance.IncrementCountInPracticeMode &&
+                    !PluginConfig.Instance.OnlyIncrementInPracticeModeWhenThePlayerFinishes;
             }
         }
 
@@ -49,6 +50,7 @@ namespace BeatmapPlayCount.Managers
         public TrackPlaytime(
             IDifficultyBeatmap _currentlyPlayingLevel,
             AudioTimeSyncController _audioSyncController,
+            AudioTimeSyncController.InitData _audioSyncControllerInitData,
             GameplayCoreSceneSetupData _gameplayCoreSceneSetupData,
             ILevelEndActions _levelEndActionImpl
            )
@@ -59,6 +61,7 @@ namespace BeatmapPlayCount.Managers
             levelEndActionImpl = _levelEndActionImpl;
 
             IsGameplayInPracticeMode = _gameplayCoreSceneSetupData.practiceSettings != null;
+            SongStartTime = _audioSyncControllerInitData.startSongTime;
         }
 
         public void Initialize()
@@ -71,7 +74,7 @@ namespace BeatmapPlayCount.Managers
             levelEndActionImpl.levelFinishedEvent += handleLevelFinishedEvent;
 
 #if DEBUG
-            Plugin.Log.Info($"TrackPlaytime IsGameplayAnExternalModReplay = {IsGameplayAnExternalModReplay}; DoesBeatmapHaveBannedCharacteristic = {DoesBeatmapHaveBannedCharacteristic}; IsPracticeMode {IsGameplayInPracticeMode}");
+            Plugin.Log.Info($"TrackPlaytime IsGameplayAnExternalModReplay = {IsGameplayAnExternalModReplay}; DoesBeatmapHaveBannedCharacteristic = {DoesBeatmapHaveBannedCharacteristic}; IsPracticeMode {IsGameplayInPracticeMode}; SongStartTime {SongStartTime}");
 #endif
         }
 
@@ -111,7 +114,12 @@ namespace BeatmapPlayCount.Managers
                 return;
             }
 
-            var progress = audioSyncController.songTime / audioSyncController.songEndTime;
+            var currentTime = Math.Max(0, audioSyncController.songTime - SongStartTime);
+            var endTime = audioSyncController.songEndTime - SongStartTime;
+            var progress = currentTime / endTime;
+#if DEBUG
+            Plugin.Log.Debug($"Progress {progress}; current time {audioSyncController.songTime}; relative current time {currentTime}; relative duration {endTime}; duration {audioSyncController.songEndTime}");
+#endif
             if (progress >= PluginConfig.Instance.MinimumSongProgressToIncrementingPlayCount)
             {
                 IncrementPlayCount();
