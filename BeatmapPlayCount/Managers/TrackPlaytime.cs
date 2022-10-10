@@ -1,19 +1,50 @@
 ﻿using BeatmapPlayCount.Configuration;
+using System;
 using System.Linq;
 using Zenject;
 
 namespace BeatmapPlayCount.Managers
 {
-    internal class TrackPlaytime : IInitializable, ITickable
+    internal class TrackPlaytime : IInitializable, IDisposable, ITickable
     {
         private readonly AudioTimeSyncController audioSyncController;
         private readonly string beatmapId;
         private readonly string beatmapCharacteristic;
+        private readonly ILevelEndActions levelEndActionImpl;
 
         public bool Incremented { get; private set; }
         public bool IsGameplayAnExternalModReplay { get; private set; }
         public bool IsGameplayInPracticeMode { get; private set; }
         public bool DoesBeatmapHaveBannedCharacteristic { get; private set; }
+
+        public bool CanIncrementByPercentageDuringPracticeMode
+        {
+            get
+            {
+                return IsGameplayInPracticeMode && (
+                    !PluginConfig.Instance.IncrementCountInPracticeMode ||
+                    PluginConfig.Instance.OnlyIncrementInPracticeModeWhenThePlayerFinishes
+                );
+            }
+        }
+
+        public bool CanIncrement
+        {
+            get
+            {
+                return !IsGameplayAnExternalModReplay &&
+                    !DoesBeatmapHaveBannedCharacteristic;
+            }
+        }
+
+        public bool CanIncrementByPercentage
+        {
+            get
+            {
+                return CanIncrement &&
+                    CanIncrementByPercentageDuringPracticeMode;
+            }
+        }
 
         public TrackPlaytime(
             IDifficultyBeatmap _currentlyPlayingLevel,
@@ -25,10 +56,9 @@ namespace BeatmapPlayCount.Managers
             audioSyncController = _audioSyncController;
             beatmapId = _currentlyPlayingLevel.level.levelID;
             beatmapCharacteristic = _currentlyPlayingLevel.parentDifficultyBeatmapSet.beatmapCharacteristic.serializedName;
+            levelEndActionImpl = _levelEndActionImpl;
 
             IsGameplayInPracticeMode = _gameplayCoreSceneSetupData.practiceSettings != null;
-
-            _levelEndActionImpl.levelFinishedEvent += handleLevelFinishedEvent;
         }
 
         public void Initialize()
@@ -38,9 +68,16 @@ namespace BeatmapPlayCount.Managers
             DoesBeatmapHaveBannedCharacteristic = PluginConfig.Instance.BannedBeatmapCharacteristics
                 .Any(bannedCharacteristic => bannedCharacteristic == beatmapCharacteristic);
 
+            levelEndActionImpl.levelFinishedEvent += handleLevelFinishedEvent;
+
 #if DEBUG
             Plugin.Log.Info($"TrackPlaytime IsGameplayAnExternalModReplay = {IsGameplayAnExternalModReplay}; DoesBeatmapHaveBannedCharacteristic = {DoesBeatmapHaveBannedCharacteristic}; IsPracticeMode {IsGameplayInPracticeMode}");
 #endif
+        }
+
+        public void Dispose()
+        {
+            levelEndActionImpl.levelFinishedEvent -= handleLevelFinishedEvent;
         }
 
         public void IncrementPlayCount()
@@ -69,10 +106,7 @@ namespace BeatmapPlayCount.Managers
 
         public void Tick()
         {
-            if (IsGameplayAnExternalModReplay ||
-                DoesBeatmapHaveBannedCharacteristic ||
-                IsGameplayInPracticeMode /* handled by handleLevelFinishedEvent */ ||
-                Incremented)
+            if (!CanIncrementByPercentage || Incremented)
             {
                 return;
             }

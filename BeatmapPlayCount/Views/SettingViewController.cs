@@ -1,6 +1,7 @@
 ﻿using BeatmapPlayCount.Configuration;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Settings;
+using BeatSaberMarkupLanguage.Tags;
 using BeatSaberMarkupLanguage.ViewControllers;
 using Polyglot;
 using System;
@@ -27,11 +28,24 @@ namespace BeatmapPlayCount.Views
         public bool IncrementCountInPracticeMode
         {
             get => PluginConfig.Instance.IncrementCountInPracticeMode;
-            set => PluginConfig.Instance.IncrementCountInPracticeMode = value;
+            set {
+                PluginConfig.Instance.IncrementCountInPracticeMode = value;
+                Toggle_OnlyIncrementInPracticeModeWhenThePlayerFinishes.interactable = value;
+            }
+        }
+
+        [UIComponent("Toggle_OnlyIncrementInPracticeModeWhenThePlayerFinishes")]
+        private BeatSaberMarkupLanguage.Components.Settings.ToggleSetting Toggle_OnlyIncrementInPracticeModeWhenThePlayerFinishes;
+
+        [UIValue("OnlyIncrementInPracticeModeWhenThePlayerFinishes")]
+        public bool OnlyIncrementInPracticeModeWhenThePlayerFinishes
+        {
+            get => PluginConfig.Instance.OnlyIncrementInPracticeModeWhenThePlayerFinishes;
+            set => PluginConfig.Instance.OnlyIncrementInPracticeModeWhenThePlayerFinishes = value;
         }
 
         [UIValue("BannedBeatmapCharacteristics")]
-        public readonly List<BeatmapCharacteristicBannedToggle> BannedBeatmapCharacteristics = new List<BeatmapCharacteristicBannedToggle>();
+        public List<BeatmapCharacteristicBannedToggle> BannedBeatmapCharacteristics = new List<BeatmapCharacteristicBannedToggle>();
 
         public string ResourceName => string.Join(".", GetType().Namespace, GetType().Name);
 

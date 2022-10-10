@@ -13,11 +13,24 @@
 			max='100.0'
 		></slider-setting>
 		<checkbox-setting
-			text='Increment count after finishing a song in practice'
+			text='Increment count during practice mode'
 			overflow-mode='Overflow'
 			word-wrapping='false'
 			value='IncrementCountInPracticeMode'
+			bind-value='true'
+			apply-on-change='true'
 		></checkbox-setting>
+		<horizontal pad-left='5'>
+			<checkbox-setting
+				id='Toggle_OnlyIncrementInPracticeModeWhenThePlayerFinishes'
+				text='but only when finishing the song'
+				value='OnlyIncrementInPracticeModeWhenThePlayerFinishes'
+				bind-value='true'
+				apply-on-change='true'
+				preferred-width='85'
+			></checkbox-setting>
+		</horizontal>
+		<div />
 		<vertical
 			horizontal-fit='Unconstrained'
 			vertical-fit='PreferredSize'
@@ -25,14 +38,14 @@
 			<label text='Banned gamemodes / beatmap characteristics'></label>
 			<vertical
 				horizontal-fit='PreferredSize'
-				pad-left='10'
+				pad-left='5'
 			>
 				<macro.for-each hosts='BannedBeatmapCharacteristics'>
 					<checkbox-setting
 						text='~LocalizedCharacteristicName'
 						value='IsBanned'
 						on-change='HandleChange'
-						preferred-width='80'
+						preferred-width='85'
 					/>
 				</macro.for-each>
 			</vertical>
