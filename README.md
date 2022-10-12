@@ -11,3 +11,7 @@ By default, the count is incremented after reaching 70% through the song, though
 ### Data location
 
 Play counts are stored in `(Game directory)\UserData\PlayCounts\(Level ID).count`.
+
+### TODO
+
+- Enable during multiplayer

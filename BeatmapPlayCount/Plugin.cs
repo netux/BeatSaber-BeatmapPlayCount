@@ -29,7 +29,7 @@ namespace BeatmapPlayCount
 			{
                 Container.BindInterfacesAndSelfTo<SettingViewController>().FromNewComponentAsViewController().AsSingle().NonLazy();
             });
-			zenjector.Install(Location.GameCore, Container =>
+			zenjector.Install(Location.StandardPlayer, Container =>
 			{
                 Container.BindInterfacesTo<TrackPlaytime>().AsSingle();
             });
