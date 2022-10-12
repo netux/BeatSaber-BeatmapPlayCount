@@ -29,8 +29,14 @@ namespace BeatmapPlayCount
 			{
                 Container.BindInterfacesAndSelfTo<SettingViewController>().FromNewComponentAsViewController().AsSingle().NonLazy();
             });
-			zenjector.Install(Location.StandardPlayer, Container =>
+			zenjector.Install(Location.Singleplayer, Container =>
 			{
+				if (Container.HasBinding<BeatmapEditorGameplaySceneSetupData>())
+				{
+					// Avoid tracking time during Editor gameplay.
+					return;
+				}
+
                 Container.BindInterfacesTo<TrackPlaytime>().AsSingle();
             });
         }
