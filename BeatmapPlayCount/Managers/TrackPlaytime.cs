@@ -120,7 +120,7 @@ namespace BeatmapPlayCount.Managers
 #if DEBUG
             Plugin.Log.Debug($"Progress {progress}; current time {audioSyncController.songTime}; relative current time {currentTime}; relative duration {endTime}; duration {audioSyncController.songEndTime}");
 #endif
-            if (progress >= PluginConfig.Instance.MinimumSongProgressToIncrementingPlayCount)
+            if (progress >= PluginConfig.Instance.MinimumSongProgressToIncrementPlayCount)
             {
                 IncrementPlayCount();
             }

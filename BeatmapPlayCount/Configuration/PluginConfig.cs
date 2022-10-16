@@ -15,7 +15,7 @@ namespace BeatmapPlayCount.Configuration
 
         // Members must be 'virtual' if we want BSIPA to detect a value change and save the config automatically.
 
-        public virtual float MinimumSongProgressToIncrementingPlayCount { get; set; } = 0.7f;
+        public virtual float MinimumSongProgressToIncrementPlayCount { get; set; } = 0.7f;
 
         public virtual bool IncrementCountInPracticeMode { get; set; } = true;
         public virtual bool OnlyIncrementInPracticeModeWhenThePlayerFinishes { get; set; } = true;

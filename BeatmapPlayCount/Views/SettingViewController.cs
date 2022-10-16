@@ -20,8 +20,8 @@ namespace BeatmapPlayCount.Views
         [UIValue("MinimumSongProgressToIncrementingPlayCount")]
         public float MinimumSongProgressToIncrementingPlayCount
         {
-            get => PluginConfig.Instance.MinimumSongProgressToIncrementingPlayCount * 100.0f;
-            set => PluginConfig.Instance.MinimumSongProgressToIncrementingPlayCount = value / 100.0f;
+            get => PluginConfig.Instance.MinimumSongProgressToIncrementPlayCount * 100.0f;
+            set => PluginConfig.Instance.MinimumSongProgressToIncrementPlayCount = value / 100.0f;
         }
 
         [UIValue("IncrementCountInPracticeMode")]
