@@ -19,7 +19,7 @@ namespace BeatmapPlayCount.Managers
 
         public float SongStartTime { get; private set; }
 
-        public bool CanIncrementByPercentageDuringPracticeMode
+        public bool CanIncrementByPercentageBecauseOfPracticeMode
         {
             get
             {
@@ -43,12 +43,11 @@ namespace BeatmapPlayCount.Managers
             get
             {
                 return CanIncrement &&
-                    CanIncrementByPercentageDuringPracticeMode;
+                    CanIncrementByPercentageBecauseOfPracticeMode;
             }
         }
 
         public TrackPlaytime(
-            IDifficultyBeatmap _currentlyPlayingLevel,
             AudioTimeSyncController _audioSyncController,
             AudioTimeSyncController.InitData _audioSyncControllerInitData,
             GameplayCoreSceneSetupData _gameplayCoreSceneSetupData,
@@ -56,8 +55,10 @@ namespace BeatmapPlayCount.Managers
            )
         {
             audioSyncController = _audioSyncController;
-            beatmapId = _currentlyPlayingLevel.level.levelID;
-            beatmapCharacteristic = _currentlyPlayingLevel.parentDifficultyBeatmapSet.beatmapCharacteristic.serializedName;
+            beatmapId = _gameplayCoreSceneSetupData.difficultyBeatmap
+                .level.levelID;
+            beatmapCharacteristic = _gameplayCoreSceneSetupData.difficultyBeatmap
+                .parentDifficultyBeatmapSet.beatmapCharacteristic.serializedName;
             levelEndActionImpl = _levelEndActionImpl;
 
             IsGameplayInPracticeMode = _gameplayCoreSceneSetupData.practiceSettings != null;
