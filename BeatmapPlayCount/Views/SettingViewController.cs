@@ -81,6 +81,11 @@ namespace BeatmapPlayCount.Views
             BannedBeatmapCharacteristics.Clear();
             foreach (var beatmapCharacteristic in beatmapCharacteristics)
             {
+                if (beatmapCharacteristic.serializedName == "MissingCharacteristic")
+                {
+                    continue;
+                }
+
                 BannedBeatmapCharacteristics.Add(
                     new BeatmapCharacteristicBannedToggle(this)
                     {
