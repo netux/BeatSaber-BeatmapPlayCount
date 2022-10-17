@@ -15,3 +15,5 @@ Play counts are stored in `(Game directory)\UserData\PlayCounts\(Level ID).count
 ### TODO
 
 - Enable during multiplayer
+- Add "Unplayed" and "Played" filters to song select
+- Add sorting by play count to song select
