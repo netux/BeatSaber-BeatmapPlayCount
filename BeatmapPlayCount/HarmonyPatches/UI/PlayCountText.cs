@@ -18,12 +18,16 @@ namespace BeatmapPlayCount.HarmonyPatches.UI
         {
             if (!playCountContainerGameObject)
             {
-                // Get reference for GameObjects
+                // Get reference GameObject
                 var levelParamsPanel = IPA.Utilities.ReflectionUtil.GetField<LevelParamsPanel, StandardLevelDetailView>(__instance, "_levelParamsPanel");
                 var notesPerSecondText = IPA.Utilities.ReflectionUtil.GetField<TextMeshProUGUI, LevelParamsPanel>(levelParamsPanel, "_notesPerSecondText");
-                var levelParamsGameObject = notesPerSecondText.transform.parent.gameObject;
+                var playCountContainerGameObject = notesPerSecondText.transform.parent.gameObject;
 
-                playCountContainerGameObject = GameObject.Instantiate(levelParamsGameObject, levelParamsGameObject.transform.parent.parent /* (LevelDetail) */);
+                // Create play count text from reference
+                playCountContainerGameObject = GameObject.Instantiate(
+                    playCountContainerGameObject,
+                    playCountContainerGameObject.transform.parent.parent /* LevelDetail game object */
+                );
                 playCountContainerGameObject.name = "Play Count";
 
                 var playCountContainerHLG = playCountContainerGameObject.AddComponent<UnityEngine.UI.HorizontalLayoutGroup>();
@@ -35,10 +39,10 @@ namespace BeatmapPlayCount.HarmonyPatches.UI
                 Object.Destroy(playCountContainerGameObject.GetComponent<HMUI.HoverHint>());     // remove as this is causing exception spam
                 Object.Destroy(playCountContainerGameObject.GetComponent<LocalizedHoverHint>()); // when hovering over the label
 
-                var playCountIconGameObject = playCountContainerGameObject.transform.Find("Icon");
+                var playCountIconGameObject = playCountContainerGameObject.transform.Find("Icon").gameObject;
                 playCountIconGameObject.GetComponent<HMUI.ImageView>().sprite = BundledResources.PlayCountSprite;
 
-                var playCountTextGameObject = playCountContainerGameObject.transform.Find("ValueText");
+                var playCountTextGameObject = playCountContainerGameObject.transform.Find("ValueText").gameObject;
 
                 playCountText = playCountTextGameObject.GetComponent<TextMeshProUGUI>();
                 playCountText.fontStyle = FontStyles.Normal;
