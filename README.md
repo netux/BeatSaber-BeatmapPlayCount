@@ -4,7 +4,7 @@ Simple mod to keep track of how many times you've played a song.
 
 ![Preview](assets/menu-leveldetail-playcount.png)
 
-By default, the count is incremented after reaching 70% through the song, though this value, and many more, are configurable:
+The count is incremented after playing 70% through a song by default, but this can be configured along other values through an in-game UI:
 
 ![Mod settings](assets/mod-settings.png)
 
