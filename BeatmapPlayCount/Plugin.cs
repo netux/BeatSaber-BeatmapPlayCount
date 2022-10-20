@@ -8,6 +8,7 @@ using SiraUtil.Zenject;
 using BeatmapPlayCount.Managers;
 using BeatmapPlayCount.Views;
 using Zenject;
+using BeatmapPlayCount.Utils;
 
 namespace BeatmapPlayCount
 {
@@ -39,6 +40,8 @@ namespace BeatmapPlayCount
 
                 Container.BindInterfacesTo<TrackPlaytime>().AsSingle();
             });
+
+			BundledResources.Load();
         }
 
         [Init]

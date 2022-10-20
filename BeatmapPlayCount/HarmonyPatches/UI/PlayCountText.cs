@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using UnityEngine;
+using BeatmapPlayCount.Utils;
 using TMPro;
 
 /// <summary>
@@ -10,35 +11,50 @@ namespace BeatmapPlayCount.HarmonyPatches.UI
     [HarmonyPatch(typeof(StandardLevelDetailView), nameof(StandardLevelDetailView.RefreshContent))]
     public class PlayCountText
     {
-        internal static TextMeshProUGUI playCountTextGameObject { get; private set; }
+        internal static GameObject playCountContainerGameObject { get; private set; }
+        internal static TMPro.TextMeshProUGUI playCountText { get; private set; }
 
         static void Postfix(StandardLevelDetailView __instance)
         {
-            if (!playCountTextGameObject)
+            if (!playCountContainerGameObject)
             {
-                // Get reference text GameObject
-                LevelParamsPanel levelParamsPanel = IPA.Utilities.ReflectionUtil.GetField<LevelParamsPanel, StandardLevelDetailView>(__instance, "_levelParamsPanel");
-                TextMeshProUGUI notesPerSecondText = IPA.Utilities.ReflectionUtil.GetField<TextMeshProUGUI, LevelParamsPanel>(levelParamsPanel, "_notesPerSecondText");
+                // Get reference for GameObjects
+                var levelParamsPanel = IPA.Utilities.ReflectionUtil.GetField<LevelParamsPanel, StandardLevelDetailView>(__instance, "_levelParamsPanel");
+                var notesPerSecondText = IPA.Utilities.ReflectionUtil.GetField<TextMeshProUGUI, LevelParamsPanel>(levelParamsPanel, "_notesPerSecondText");
+                var levelParamsGameObject = notesPerSecondText.transform.parent.gameObject;
 
-                // Create text GameObject from reference
-                playCountTextGameObject = GameObject.Instantiate(notesPerSecondText, __instance.transform);
-                playCountTextGameObject.name = "PlayCountText";
+                playCountContainerGameObject = GameObject.Instantiate(levelParamsGameObject, levelParamsGameObject.transform.parent.parent /* (LevelDetail) */);
+                playCountContainerGameObject.name = "Play Count";
 
-                var textComp = playCountTextGameObject.GetComponent<TextMeshProUGUI>();
-                textComp.fontStyle = FontStyles.Normal;
-                textComp.alignment = TextAlignmentOptions.Right;
-                textComp.enableWordWrapping = false;
+                var playCountContainerHLG = playCountContainerGameObject.AddComponent<UnityEngine.UI.HorizontalLayoutGroup>();
+                playCountContainerHLG.spacing = 0.5f;
+                playCountContainerHLG.childForceExpandWidth = false;
+                playCountContainerHLG.childForceExpandHeight = false;
+                playCountContainerHLG.childAlignment = TextAnchor.MiddleRight;
+
+                Object.Destroy(playCountContainerGameObject.GetComponent<HMUI.HoverHint>());     // remove as this is causing exception spam
+                Object.Destroy(playCountContainerGameObject.GetComponent<LocalizedHoverHint>()); // when hovering over the label
+
+                var playCountIconGameObject = playCountContainerGameObject.transform.Find("Icon");
+                playCountIconGameObject.GetComponent<HMUI.ImageView>().sprite = BundledResources.PlayCountSprite;
+
+                var playCountTextGameObject = playCountContainerGameObject.transform.Find("ValueText");
+
+                playCountText = playCountTextGameObject.GetComponent<TextMeshProUGUI>();
+                playCountText.fontStyle = FontStyles.Normal;
+                playCountText.alignment = TextAlignmentOptions.Right;
+                playCountText.enableWordWrapping = false;
             }
 
             var beatmap = IPA.Utilities.ReflectionUtil.GetField<IBeatmapLevel, StandardLevelDetailView>(__instance, "_level");
             var count = Plugin._storage.GetPlayCount(beatmap.levelID);
 
-            playCountTextGameObject.text = "\uD83D\uDF82 " + count.ToString();
+            playCountText.text = count.ToString();
 
-            playCountTextGameObject.transform.localPosition = new Vector3(20f, -3f, 0f);
+            playCountContainerGameObject.transform.localPosition = new Vector3(14f, -3f, 0f);
             if (SongCore.UI.RequirementsUI.instance.ButtonInteractable)
             {
-                playCountTextGameObject.transform.localPosition += Vector3.left * 10;
+                playCountContainerGameObject.transform.localPosition += Vector3.left * 10;
             }
         }
     }

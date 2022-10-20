@@ -24,8 +24,8 @@ By default, the count is incremented after reaching 70% through the song, though
 
 Play counts are stored in `(Game directory)\UserData\PlayCounts\(Level ID).count`.
 
-### TODO
+## About mod assets
 
-- Enable during multiplayer
-- Add "Unplayed" and "Played" filters to song select
-- Add sorting by play count to song select
+The [Resources/Bundle.bundle](./BeatmapPlayCount/Resources/Bundle.bundle) file is generated via [a separate Unity project](https://github.com/netux/BeatSaber-BeatmapPlayCount-AssetBundler).
+
+This file is embedded into each release .dll, so there is no need to download it separately.
