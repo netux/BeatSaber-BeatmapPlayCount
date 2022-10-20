@@ -24,6 +24,8 @@ The count is incremented after playing 70% through a song by default, but this c
 
 Play counts are stored in `(Game directory)\UserData\PlayCounts\(Level ID).count`.
 
+Mod configuration is stored in `(Game directory)\UserData\Simple Beatmap Play Count.json`.
+
 ## About mod assets
 
 The [Resources/Bundle.bundle](./BeatmapPlayCount/Resources/Bundle.bundle) file is generated via [a separate Unity project](https://github.com/netux/BeatSaber-BeatmapPlayCount-AssetBundler).
