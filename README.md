@@ -20,6 +20,10 @@ The count is incremented after playing 70% through a song by default, but this c
 1. Download the latest release for your Beat Saber version from [the Releases link on the right](releases/).
 1. Drop the downloaded .dll into the `(Game directory)\Plugins` directory
 
+### Dependencies
+
+This mod relies on SiraUtil and BeatSaberMarkupLanguage (which should already be installed with the default ModAssistant installation).
+
 ## Data location
 
 Play counts are stored in `(Game directory)\UserData\PlayCounts\(Level ID).count`.
