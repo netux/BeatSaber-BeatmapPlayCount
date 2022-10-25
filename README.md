@@ -1,4 +1,4 @@
-# Simple Beatmap Play Count
+# Simple Beatmap Play Count (PC version)
 
 Simple mod to keep track of how many times you've played a song.
 
