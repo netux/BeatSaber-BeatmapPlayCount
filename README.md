@@ -30,7 +30,11 @@ Play counts are stored in `(Game directory)\UserData\PlayCounts\(Level ID).count
 
 Mod configuration is stored in `(Game directory)\UserData\Simple Beatmap Play Count.json`.
 
-## About mod assets
+## Development
+
+Read the [BSMG Wiki PC Mod Development Intro guide](https://bsmg.wiki/modding/pc-mod-dev-intro.html) to learn how to get your environment setup.
+
+### About mod assets
 
 The [Resources/Bundle.bundle](./BeatmapPlayCount/Resources/Bundle.bundle) file is generated via [a separate Unity project](https://github.com/netux/BeatSaber-BeatmapPlayCount-AssetBundler).
 
