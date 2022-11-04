@@ -3,7 +3,7 @@
   "id": "BeatmapPlayCount",
   "name": "Simple Beatmap Play Count",
   "author": "Netux",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "",
   "gameVersion": "1.24.0",
   "dependsOn": {
