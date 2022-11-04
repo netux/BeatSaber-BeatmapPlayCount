@@ -31,7 +31,7 @@ namespace BeatmapPlayCount
             {
                 Container.BindInterfacesAndSelfTo<SettingViewController>().FromNewComponentAsViewController().AsSingle().NonLazy();
             });
-            zenjector.Install(Location.Singleplayer, Container =>
+            zenjector.Install(Location.StandardPlayer | Location.CampaignPlayer, Container =>
             {
                 if (Container.HasBinding<BeatmapEditorGameplaySceneSetupData>())
                 {
