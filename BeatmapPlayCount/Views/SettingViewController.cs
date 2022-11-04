@@ -28,7 +28,8 @@ namespace BeatmapPlayCount.Views
         public bool IncrementCountInPracticeMode
         {
             get => PluginConfig.Instance.IncrementCountInPracticeMode;
-            set {
+            set
+            {
                 PluginConfig.Instance.IncrementCountInPracticeMode = value;
                 Toggle_OnlyIncrementInPracticeModeWhenThePlayerFinishes.interactable = value;
             }

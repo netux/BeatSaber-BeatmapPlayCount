@@ -144,6 +144,7 @@
     <EmbeddedResource Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
     <None Include="BeatmapPlayCount.csproj.user" Condition="Exists('BeatmapPlayCount.csproj.user')" />
     <EmbeddedResource Include="Views\SettingViewController.bsml">

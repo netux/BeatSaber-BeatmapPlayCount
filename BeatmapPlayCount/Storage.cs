@@ -17,7 +17,8 @@ namespace BeatmapPlayCount
             if (!Directory.Exists(basePath))
             {
                 Directory.CreateDirectory(basePath);
-            } else
+            }
+            else
             {
                 foreach (string filePath in Directory.EnumerateFiles(basePath))
                 {
