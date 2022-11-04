@@ -21,7 +21,7 @@ namespace BeatmapPlayCount.HarmonyPatches.UI
                 // Get reference GameObject
                 var levelParamsPanel = IPA.Utilities.ReflectionUtil.GetField<LevelParamsPanel, StandardLevelDetailView>(__instance, "_levelParamsPanel");
                 var notesPerSecondText = IPA.Utilities.ReflectionUtil.GetField<TextMeshProUGUI, LevelParamsPanel>(levelParamsPanel, "_notesPerSecondText");
-                var playCountContainerGameObject = notesPerSecondText.transform.parent.gameObject;
+                playCountContainerGameObject = notesPerSecondText.transform.parent.gameObject;
 
                 // Create play count text from reference
                 playCountContainerGameObject = GameObject.Instantiate(
